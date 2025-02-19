@@ -14,8 +14,8 @@
 
 ### 1. Cloning the repository
 ```sh
-git clone <repo-url>
-cd <project-directory>
+git clone https://github.com/Lokrip/security
+cd security
 ```
 ### 2. Project start
 ```sh
