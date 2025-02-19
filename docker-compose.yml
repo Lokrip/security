@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  security-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ".:/app"
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=security
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=pass
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data_v1:/var/lib/postgresql/data/
+
+
+volumes:
+  postgres_data_v1:
