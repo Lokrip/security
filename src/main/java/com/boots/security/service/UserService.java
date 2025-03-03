@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.boots.security.dto.UserDto;
 import com.boots.security.entity.UserEntity;
+import com.boots.security.exeption.UserNotCreatedExeption;
 
 public interface UserService {
     UserEntity findUserById(Long userId);
@@ -12,7 +13,7 @@ public interface UserService {
 
     boolean saveUser(UserEntity user);
 
-    UserDto createUser(UserEntity user);
+    UserDto createUser(UserDto userDto);
 
     boolean deleteUser(Long userId);
 

@@ -2,15 +2,27 @@ package com.boots.security.dto;
 
 import java.util.Set;
 
-import com.boots.security.entity.RoleEntity;
 
 public class UserDto {
     private String username;
+    private String password;
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
     private String email;
-    private Set<RoleEntity> roles;
+    private Set<RoleDto> roles;
+    public Set<RoleDto> getRoles() {
+        return roles;
+    }
+    public void setRoles(Set<RoleDto> roles) {
+        this.roles = roles;
+    }
     public UserDto() {
     }
-    public UserDto(String username, String email, Set<RoleEntity> roles) {
+    public UserDto(String username, String email, Set<RoleDto> roles) {
         this.username = username;
         this.email = email;
         this.roles = roles;
@@ -27,14 +39,14 @@ public class UserDto {
     public void setEmail(String email) {
         this.email = email;
     }
-    public Set<RoleEntity> getRoles() {
-        return roles;
-    }
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
-    }
+
     @Override
     public String toString() {
-        return "UserDto [username=" + username + ", email=" + email + ", roles=" + roles + "]";
+        return "UserDto{" +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

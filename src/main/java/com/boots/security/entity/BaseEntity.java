@@ -6,9 +6,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-//@MappedSuperclass — это аннотация в JPA (Java Persistence API), 
-//которая указывает, что класс является суперклассом для других сущностей, 
-//но сам по себе не является сущностью и 
+//@MappedSuperclass — это аннотация в JPA (Java Persistence API),
+//которая указывает, что класс является суперклассом для других сущностей,
+//но сам по себе не является сущностью и
 //не создает отдельную таблицу в базе данных
 //1. Определяет базовый класс для нескольких сущностей.
 //2. Не создает отдельную таблицу в базе данных.
@@ -18,7 +18,6 @@ import jakarta.persistence.GenerationType;
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     protected Long id;
 
     public Long getId() {

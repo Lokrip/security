@@ -4,19 +4,22 @@ import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "role")
+@Table(name = "\"role\"")
 public class RoleEntity extends BaseEntity implements GrantedAuthority {
     // Реализует интерфейс GrantedAuthority, который требуется Spring Security для работы с ролями
 
     private String title;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @JsonIgnore // <-- Игнорируем пользователей внутри ролей, чтобы избежать зацикливания
     private Set<UserEntity> users;
 
     public RoleEntity() {

@@ -1,6 +1,8 @@
 package com.boots.security.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -11,10 +13,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 public class UserEntity extends BaseEntity implements UserDetails {
     private String username;
     private String email;
@@ -34,6 +38,17 @@ public class UserEntity extends BaseEntity implements UserDetails {
         inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<RoleEntity> roles;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookEntity> books = new ArrayList<>();
+
+    public List<BookEntity> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<BookEntity> books) {
+        this.books = books;
+    }
 
     public Set<RoleEntity> getRoles() {
         return roles;

@@ -1,6 +1,7 @@
 package com.boots.security.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boots.security.dto.UserDto;
-import com.boots.security.dto.response.MessageDto;
+
 import com.boots.security.entity.UserEntity;
+import com.boots.security.exeption.UserNotCreatedExeption;
 import com.boots.security.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,15 +46,14 @@ public class UserController {
         }
     )
     @GetMapping("/list")
-    public ResponseEntity<MessageDto> usersList() {
-        MessageDto messageDto = new MessageDto("Список пользователей");
-        return new ResponseEntity<>(messageDto, HttpStatus.ACCEPTED);
+    public ResponseEntity<List<UserEntity>> usersList() {
+        List<UserEntity> userEntities = userService.allUsers();
+        return new ResponseEntity<>(userEntities, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserDto> userCreate(@RequestBody UserEntity userEntity) {
-        UserDto userDto = userService.createUser(userEntity);
-        URI location = URI.create("/api/v1/users/list");
-        return ResponseEntity.created(location).body(userDto);
+    public ResponseEntity<UserDto> userCreate(@RequestBody UserDto userDto) throws UserNotCreatedExeption {
+        UserDto userDtoResult = userService.createUser(userDto);
+        return new ResponseEntity<>(userDtoResult, HttpStatus.OK);
     }
 }

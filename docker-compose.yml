@@ -11,6 +11,7 @@ services:
       - ".:/app"
     depends_on:
       - db
+      - minio-v1
   db:
     container_name: db
     image: postgres:17
@@ -19,10 +20,23 @@ services:
       - POSTGRES_USER=dbuser
       - POSTGRES_PASSWORD=pass
     ports:
-      - 5432:5432
+      - 4321:5432
     volumes:
       - postgres_data_v1:/var/lib/postgresql/data/
+
+  minio-v1:
+    image: docker.io/bitnami/minio:2022
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - 'minio_data_V1:/data'
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=password
+      - MINIO_DEFAULT_BUCKETS=book-covers
 
 
 volumes:
   postgres_data_v1:
+  minio_data_V1:
