@@ -1,5 +1,8 @@
 package com.boots.security.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -14,6 +17,7 @@ public class BookEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
+    @JsonBackReference
     private UserEntity author;
 
     @Column(name = "description", nullable = false)

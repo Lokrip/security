@@ -8,6 +8,8 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -40,6 +42,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private Set<RoleEntity> roles;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<BookEntity> books = new ArrayList<>();
 
     public List<BookEntity> getBooks() {
@@ -108,5 +111,10 @@ public class UserEntity extends BaseEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Возвращает роли пользователя, которые реализуют GrantedAuthority (необходимо для работы Spring Security)
         return getRoles();
+    }
+
+    public UserDetails orElseThrow(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
     }
 }

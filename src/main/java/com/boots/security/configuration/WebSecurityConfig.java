@@ -24,14 +24,23 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+
                 .authorizeHttpRequests(auth -> {
                     System.out.println("configuring");
+                    auth.requestMatchers("/").permitAll();
                     auth.requestMatchers("/api/v1/users/list").permitAll();
                     auth.requestMatchers("/api/v1/users/create").permitAll();
                     auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll();
+                    auth.requestMatchers("/api/v1/books").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())
+                    .logout(logout -> logout
+                    .logoutUrl("/logout") // URL выхода
+                    .logoutSuccessUrl("/") // Перенаправление после выхода
+                    .invalidateHttpSession(true) // Инвалидация сессии
+                    .deleteCookies("JSESSIONID") // Удаление cookies
+                )
                 .build();
     }
 

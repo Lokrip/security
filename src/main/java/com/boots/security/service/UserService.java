@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.boots.security.dto.UserDto;
 import com.boots.security.entity.UserEntity;
-import com.boots.security.exeption.UserNotCreatedExeption;
+import com.boots.security.exeption.UserNotCreatedException;
 
 public interface UserService {
     UserEntity findUserById(Long userId);

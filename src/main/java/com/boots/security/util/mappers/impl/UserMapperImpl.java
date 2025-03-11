@@ -16,12 +16,12 @@ import com.boots.security.util.mappers.RoleMapper;
 import com.boots.security.util.mappers.UserMapper;
 
 @Component
-public class UserMapperIml implements UserMapper {
+public class UserMapperImpl implements UserMapper {
 
     private RoleMapper roleMapper;
 
     @Autowired
-    public UserMapperIml(RoleMapper roleMapper) {
+    public UserMapperImpl(RoleMapper roleMapper) {
         this.roleMapper = roleMapper;
     }
 

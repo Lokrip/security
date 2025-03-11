@@ -12,15 +12,20 @@ import io.swagger.v3.oas.annotations.Hidden;
 
 @Hidden
 @RestControllerAdvice
-public class GlobalAdviceExeption {
+public class GlobalAdviceException {
 
-    @ExceptionHandler(UserNotCreatedExeption.class)
-    public ResponseEntity<Map<String, String>> handleNotCreatedUser(UserNotCreatedExeption exeption) {
+    @ExceptionHandler(UserNotCreatedException.class)
+    public ResponseEntity<Map<String, String>> handleNotCreatedUser(UserNotCreatedException exeption) {
         return buildResponse(HttpStatus.BAD_REQUEST, exeption.getMessage());
     }
 
     @ExceptionHandler(RoleNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleNotCreatedUser(RoleNotFoundException exeption) {
+        return buildResponse(HttpStatus.BAD_REQUEST, exeption.getMessage());
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNotFoundBook(BookNotFoundException exeption) {
         return buildResponse(HttpStatus.BAD_REQUEST, exeption.getMessage());
     }
 

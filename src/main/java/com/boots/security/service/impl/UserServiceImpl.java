@@ -19,7 +19,7 @@ import com.boots.security.dto.UserDto;
 import com.boots.security.entity.RoleEntity;
 import com.boots.security.entity.UserEntity;
 import com.boots.security.exeption.RoleNotFoundException;
-import com.boots.security.exeption.UserNotCreatedExeption;
+import com.boots.security.exeption.UserNotCreatedException;
 import com.boots.security.repository.RoleRepository;
 import com.boots.security.repository.UserRepository;
 import com.boots.security.service.UserService;
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByUsername(username);
+        UserEntity user = userRepository.findByUsername(username).orElse(null);
 
         if(user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public boolean saveUser(UserEntity user) {
-        UserEntity userFormDb = userRepository.findByUsername(user.getUsername());
+        UserEntity userFormDb = userRepository.findByUsername(user.getUsername()).orElse(null);
 
         if(userFormDb != null) {
             return false;

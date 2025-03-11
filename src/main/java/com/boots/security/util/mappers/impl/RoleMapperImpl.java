@@ -9,7 +9,7 @@ import com.boots.security.entity.RoleEntity;
 import com.boots.security.util.mappers.RoleMapper;
 
 @Component
-public class RoleMapperIml implements RoleMapper {
+public class RoleMapperImpl implements RoleMapper {
     @Override
     public RoleDto toDTO(RoleEntity entity) {
         RoleDto dto = new RoleDto();

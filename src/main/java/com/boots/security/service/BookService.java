@@ -2,11 +2,15 @@ package com.boots.security.service;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.boots.security.dto.BookImageDto;
+import com.boots.security.dto.request.BookDtoRequest;
 import com.boots.security.entity.BookEntity;
 
 public interface BookService {
-    BookEntity saveBook(BookEntity entity, MultipartFile imageFile);
+    BookEntity saveBook(BookDtoRequest bookDtoRequest, UserDetails userDetails);
+    BookEntity addImageToBook(Long id, MultipartFile imageFile);
     List<BookEntity> getAllBooks();
 }

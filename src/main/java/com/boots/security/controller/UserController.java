@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.boots.security.dto.UserDto;
 
 import com.boots.security.entity.UserEntity;
-import com.boots.security.exeption.UserNotCreatedExeption;
+import com.boots.security.exeption.UserNotCreatedException;
 import com.boots.security.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserDto> userCreate(@RequestBody UserDto userDto) throws UserNotCreatedExeption {
+    public ResponseEntity<UserDto> userCreate(@RequestBody UserDto userDto) throws UserNotCreatedException {
         UserDto userDtoResult = userService.createUser(userDto);
         return new ResponseEntity<>(userDtoResult, HttpStatus.OK);
     }
