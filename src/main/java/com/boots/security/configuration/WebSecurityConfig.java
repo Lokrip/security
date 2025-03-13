@@ -35,12 +35,6 @@ public class WebSecurityConfig {
                     auth.anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())
-                    .logout(logout -> logout
-                    .logoutUrl("/logout") // URL выхода
-                    .logoutSuccessUrl("/") // Перенаправление после выхода
-                    .invalidateHttpSession(true) // Инвалидация сессии
-                    .deleteCookies("JSESSIONID") // Удаление cookies
-                )
                 .build();
     }
 

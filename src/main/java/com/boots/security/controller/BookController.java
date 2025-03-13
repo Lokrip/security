@@ -1,6 +1,7 @@
 package com.boots.security.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,10 +54,11 @@ public class BookController {
     @PostMapping(value = "/{id}/add-image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<BookEntity> addImageToBook(
         @PathVariable Long id,
-        @ModelAttribute BookImageDto bookImageDto
+        @ModelAttribute BookImageDto bookImageDto,
+        Locale locale
     ) {
         return new ResponseEntity<>(
-            bookService.addImageToBook(id, bookImageDto.getImage()),
+            bookService.addImageToBook(id, bookImageDto.getImage(), locale),
             HttpStatus.CREATED
         );
     }

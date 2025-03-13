@@ -1,8 +1,10 @@
 package com.boots.security.service.impl;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import com.boots.security.util.mappers.BookMapper;
 @Service
 public class BookServiceImpl implements BookService {
 
+    private final MessageSource messageSource;
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
     private final ImageStorageServiceImpl imageStorageServiceImpl;
@@ -31,8 +34,10 @@ public class BookServiceImpl implements BookService {
         BookRepository bookRepository,
         ImageStorageServiceImpl imageStorageServiceImpl,
         BookMapper bookMapper,
-        UserRepository userRepository
+        UserRepository userRepository,
+        MessageSource messageSource
     ) {
+        this.messageSource =  messageSource;
         this.userRepository = userRepository;
         this.bookRepository = bookRepository;
         this.imageStorageServiceImpl = imageStorageServiceImpl;
@@ -53,13 +58,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookEntity addImageToBook(Long id, MultipartFile imageFile) {
-       BookEntity bookEntity = bookRepository.findById(id).orElseThrow(
-        () -> new BookNotFoundException()
-       );
-       String imageUrl = imageStorageServiceImpl.uploadImage(imageFile);
-       bookEntity.setImageUrl(imageUrl);
-       return bookRepository.save(bookEntity);
+    public BookEntity addImageToBook(Long id, MultipartFile imageFile, Locale locale) {
+
+        BookEntity bookEntity = bookRepository.findById(id).orElseThrow(
+         () -> new BookNotFoundException(
+            messageSource.getMessage(
+                "spring.book.not_found",
+                new Object[0],
+                locale
+            )
+         )
+        );
+        String imageUrl = imageStorageServiceImpl.uploadImage(imageFile);
+        bookEntity.setImageUrl(imageUrl);
+        return bookRepository.save(bookEntity);
     }
 
     @Override
