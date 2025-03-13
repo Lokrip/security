@@ -9,6 +9,7 @@
 - **PostgreSQL** – relational database
 - **Docker & Docker Compose** – application containerization
 - **Flyway** – managing database migrations
+- **Minio** – this is object storage, similar to Amazon S3
 
 ## 🚀 Launching the project
 
